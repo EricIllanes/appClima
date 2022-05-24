@@ -1,10 +1,12 @@
-import SearchBar from "./searchBar";
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import NavBar from "./navBar";
 
 export default function HomePage(){
+ const { cities} = useSelector(state => state)
 
     return (<div>
-        <SearchBar />
-        <h1>Hola soy la jom peish</h1>
+        <NavBar />
+
     </div>)
 }
