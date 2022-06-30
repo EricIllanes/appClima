@@ -1,24 +1,50 @@
-import { Card, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { Button, Grid, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { cleanAllCity } from "../Redux/actions";
 import CardCity from "./Cards";
 import NavBar from "./navBar";
+import styled from "@emotion/styled";
+const useStyles = styled({
+  botonclean: { background: "black" },
+});
 
 export default function HomePage() {
+  const classes = useStyles();
   const { cities } = useSelector((state) => state);
-  useEffect(() => {
-    console.log(55555, cities);
-  }, []);
-
+  const dispatch = useDispatch();
   return (
-    <div>
+    <div style={{ dislay: "flex" }}>
       <NavBar />
-      <Grid>
+      <Button
+        sx={{
+          background: "#a7d5d58c",
+          "&:hover": { transform: "scale(1.19)" },
+        }}
+        variant="contained"
+        className={classes.botonclean}
+        disabled={cities.length === 0}
+        onClick={() => {
+          dispatch(cleanAllCity());
+        }}
+      >
+        Clean
+      </Button>
+
+      <Box
+        sx={{
+          display: "flex",
+          alignSelf: "center",
+          alignContent: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
         {cities.length !== 0 ? (
           cities.map((e, index) => (
             <Grid key={index}>
               <CardCity
                 id={e.id}
+                name={e.name}
                 icon={e.icon}
                 temp={e.temp}
                 tempmax={e.tempmax}
@@ -30,57 +56,18 @@ export default function HomePage() {
         ) : (
           <>
             <img
-              src="https://c.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif"
-              alt="image-loading"
+              src="https://cdn.betterttv.net/emote/5b1740221c5a6065a7bad4b5/3x"
+              alt="imagen-loading"
               style={{
+                width: "150px",
                 justifyContent: "center",
-                height: "50px",
                 margin: "auto",
                 marginTop: "150px",
               }}
-            ></img>
+            />
           </>
         )}
-      </Grid>
+      </Box>
     </div>
   );
 }
-/*
-
-    <Card>
-        <h1>{name}</h1>
-        <img src={icon} />
-        <h2> Temp: {temp}°C</h2>
-        <h2> Máx: {tempmax}</h2>
-        <h2>Min: {tempmin}</h2>
-        <h4>{country}</h4>
-        </Card>
-
-            <Menu />
-            <Grid container spacing={2} >
-                {
-                    (product.length !== 0) ?
-                        productToShow.map((e, index) => (
-                            <Grid item xs={12} sm={6} md={4} lg={4}
-                                key={index}>
-                                <Card
-                                    rating={e.rating}
-                                    id={e._id}
-                                    sku={e.sku}
-                                    name={e.name}
-                                    description={e.description}
-                                    price={e.price}
-                                    quantity={e.quantity}
-                                    isOnStock={e.isOnStock}
-                                    img={e.img}
-                                    category={e.category}
-                                    __v={e.__v} />
-                            </Grid>
-
-                        )) : <><img
-                            src="https://c.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif"
-                            alt="image-loading"
-                            style={{ justifyContent: "center", height: "50px", margin: "auto", marginTop: "150px" }}
-                        ></img></>}
-            </Grid>
-*/
