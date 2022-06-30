@@ -2,14 +2,13 @@ import axios from "axios";
 export const ADD_CITY = "ADD_CITY";
 export const DELETE_CITY = "DELETE_CITY";
 export const CLEAN_CITY = "CLEAN_CITY";
-const {REACT_APP_API_KEY} = process.env;
 
 export function addCity(search) {
   return async function (dispatch) {
     try {
       console.log(process.env);
       let info = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${REACT_APP_API_KEY}&lang=es`
+        `http://api.openweathermap.org/data/2.5/weather?q=${search}&appid=bcd237f9e7ccb7869bb703107b89a9ea&lang=es`
       );
       if (info.data.name) {
         let enviacion = {
